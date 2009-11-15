@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.openshapa</groupId>
+  <artifactId>openshapa-lib</artifactId>
+  <packaging>jar</packaging>
+  <version>0.0.1</version>
+  <name>openshapa-lib</name>
+  <url>http://openshapa.org</url>
+
+  <!-- Our organisation. -->
+  <organization>
+    <name>NICTA</name>
+    <url>http://www.nicta.com.au</url>
+  </organization>
+
+  <!-- Our source control. -->
+  <scm>
+    <tag>master</tag>
+    <url>http://openshapa.org/viewgit/?a=summary&amp;p=openshapa-lib</url>
+  </scm>
+
+  <!-- The location for generating the website. -->
+  <distributionManagement>
+    <site>
+      <id>website</id>
+      <url>scp://hudson@openshapa.org/var/www/openshapa/</url>
+    </site>
+  </distributionManagement>
+
+  <!-- External repositories - where to find third-party dependencies. -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>http://openshapa.org/maven2</url>
+      <layout>default</layout>
+    </repository>
+
+    <repository>
+      <id>openshapa</id>
+      <url>http://openshapa.org/maven2</url>
+      <layout>default</layout>
+    </repository>
+
+    <repository>
+      <id>maven</id>
+      <url>http://repo1.maven.org/maven2</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
+
+  <!-- Use an optimized build for releases. -->
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>2.0.2</version>
+            <configuration>
+              <debug>false</debug>
+              <optimize>true</optimize>
+              <source>1.5</source>
+              <target>1.5</target>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+  <!-- Build properties. -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0.2</version>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
+

@@ -2,7 +2,6 @@ package org.openshapa.views.continuous;
 
 import java.io.File;
 import javax.swing.JFrame;
-import org.openshapa.views.DataController;
 
 /**
  * DataViewer interface.

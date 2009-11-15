@@ -22,10 +22,11 @@
 
   <!-- The location for generating the website. -->
   <distributionManagement>
-    <site>
-      <id>website</id>
-      <url>scp://hudson@openshapa.org/var/www/openshapa/</url>
-    </site>
+    <repository>
+      <id>repo</id>
+      <name>openshapa-lib</name>
+      <url>scp://openshapa.nicta.org.au/var/www/maven2</url>
+    </repository>
   </distributionManagement>
 
   <!-- External repositories - where to find third-party dependencies. -->

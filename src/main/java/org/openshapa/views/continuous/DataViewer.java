@@ -9,6 +9,27 @@ import javax.swing.JFrame;
 public interface DataViewer {
 
     /**
+     * Retrieve the duration of the underlying data stream.
+     *
+     * @return The duration in milliseconds.
+     */
+    long getDuration();
+
+    /**
+     * Retrieve the start time offset of the underlying data stream.
+     *
+     * @return Start time offset in milliseconds.
+     */
+    long getOffset();
+
+    /**
+     * Set the start time offset of the underlying data stream.
+     *
+     * @param offset Start time offset in milliseconds.
+     */
+    void setOffset(final long offset);
+
+    /**
      * Get the display window.
      *
      * @return A JFrame that will be displayed.

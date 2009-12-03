@@ -42,6 +42,11 @@ public interface DataViewer {
      * @param dataFeed The new data feed for this viewer.
      */
     void setDataFeed(final File dataFeed);
+    
+    /**
+     * @return The data feed being used by this viewer.
+     */
+    File getDataFeed();
 
     /**
      * Sets the parent data controller for this data viewer.

@@ -75,6 +75,11 @@ public interface DataViewer {
      * Stops the playback of the continous data stream.
      */
     void stop();
+    
+    /**
+     * Is this data viewer currently playing.
+     */
+    void isPlaying();
 
     /**
      * Set the playback speed.

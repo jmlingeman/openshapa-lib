@@ -79,7 +79,7 @@ public interface DataViewer {
     /**
      * Is this data viewer currently playing.
      */
-    void isPlaying();
+    boolean isPlaying();
 
     /**
      * Set the playback speed.

@@ -19,7 +19,8 @@ public interface Plugin {
     FileFilter getFileFilter();
 
     /**
-     * @return The icon for representing this plugin.
+     * @return The icon for representing this plugin. This can return null if
+     *         this plugin has no icon representing its type.
      */
     ImageIcon getTypeIcon();
 }

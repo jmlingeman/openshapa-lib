@@ -1,5 +1,6 @@
 package org.openshapa.views.continuous;
 
+import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
 /**
@@ -13,7 +14,12 @@ public interface Plugin {
 
     /**
      * @return The filter to use when looking for files that the plugins data
-     * viewer supports.
+     *         viewer supports.
      */
     FileFilter getFileFilter();
+
+    /**
+     * @return The icon for representing this plugin.
+     */
+    ImageIcon getTypeIcon();
 }

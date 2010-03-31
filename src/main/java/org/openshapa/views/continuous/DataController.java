@@ -12,6 +12,7 @@ package org.openshapa.views.continuous;
  * It would be nice if we could use a weak reference instead (see bug:755)
  */
 public interface DataController {
+
     /**
      * Remove the specifed viewer form the controller.
      *

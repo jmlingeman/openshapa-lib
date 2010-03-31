@@ -1,7 +1,9 @@
 package org.openshapa.views.continuous;
 
 import java.io.File;
+
 import javax.swing.JFrame;
+
 
 /**
  * DataViewer interface.
@@ -42,7 +44,7 @@ public interface DataViewer {
      * @param dataFeed The new data feed for this viewer.
      */
     void setDataFeed(final File dataFeed);
-    
+
     /**
      * @return The data feed being used by this viewer.
      */
@@ -75,7 +77,7 @@ public interface DataViewer {
      * Stops the playback of the continous data stream.
      */
     void stop();
-    
+
     /**
      * Is this data viewer currently playing.
      */

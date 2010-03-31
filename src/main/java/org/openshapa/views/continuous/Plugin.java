@@ -3,10 +3,15 @@ package org.openshapa.views.continuous;
 import javax.swing.ImageIcon;
 import javax.swing.filechooser.FileFilter;
 
+import org.openshapa.views.component.DefaultTrackPainter;
+import org.openshapa.views.component.TrackPainter;
+
+
 /**
  * Plugin interface - specifies the methods an OpenSHAPA plugin must implement.
  */
 public interface Plugin {
+
     /**
      * @return A new instance of the plugins data viewer.
      */
@@ -23,4 +28,11 @@ public interface Plugin {
      *         this plugin has no icon representing its type.
      */
     ImageIcon getTypeIcon();
+
+    /**
+     * @return Custom track painter implementation. Must not return null.
+     * Plugins that do not have a custom track painter implementation should
+     * return {@link DefaultTrackPainter}.
+     */
+    TrackPainter getTrackPainter();
 }

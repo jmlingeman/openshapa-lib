@@ -4,6 +4,9 @@ import java.io.File;
 
 import javax.swing.JFrame;
 
+import org.openshapa.views.component.DefaultTrackPainter;
+import org.openshapa.views.component.TrackPainter;
+
 
 /**
  * DataViewer interface.
@@ -96,4 +99,11 @@ public interface DataViewer {
      * @param position The absolute millisecond playback position.
      */
     void seekTo(long position);
+
+    /**
+     * @return Custom track painter implementation. Must not return null.
+     * Plugins that do not have a custom track painter implementation should
+     * return {@link DefaultTrackPainter}.
+     */
+    TrackPainter getTrackPainter();
 }

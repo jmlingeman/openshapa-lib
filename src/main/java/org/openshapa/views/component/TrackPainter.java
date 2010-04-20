@@ -176,6 +176,13 @@ public abstract class TrackPainter extends JComponent {
 
         g2.drawPolygon(carriagePolygon);
 
+        // Paint custom information, if any.
+        {
+            Graphics g3 = g.create();
+            paintCustom(g3);
+            g3.dispose();
+        }
+
         if (trackModel.getBookmark() < 0) {
             return;
         }
@@ -215,11 +222,6 @@ public abstract class TrackPainter extends JComponent {
             g2.drawPolygon(bookmarkDiamond);
         }
 
-        g2.dispose();
-
-        // Paint custom information, if any.
-        g2 = g.create();
-        paintCustom(g2);
         g2.dispose();
 
     }

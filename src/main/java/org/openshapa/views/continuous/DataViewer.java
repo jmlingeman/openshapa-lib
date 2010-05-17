@@ -11,7 +11,7 @@ import org.openshapa.views.component.TrackPainter;
 /**
  * DataViewer interface.
  */
-public interface DataViewer {
+public interface DataViewer extends CustomActionListener {
 
     /**
      * Retrieve the duration of the underlying data stream.
@@ -106,4 +106,5 @@ public interface DataViewer {
      * return {@link DefaultTrackPainter}.
      */
     TrackPainter getTrackPainter();
+
 }

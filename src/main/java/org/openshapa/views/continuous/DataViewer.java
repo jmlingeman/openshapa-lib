@@ -1,6 +1,8 @@
 package org.openshapa.views.continuous;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.swing.JFrame;
 
@@ -106,5 +108,17 @@ public interface DataViewer extends CustomActionListener {
      * return {@link DefaultTrackPainter}.
      */
     TrackPainter getTrackPainter();
+
+    /**
+     * Read settings from the given input stream.
+     * @param is Input stream to load from.
+     */
+    void loadSettings(InputStream is);
+
+    /**
+     * Write settings to the given output stream.
+     * @param os Output stream to write to,
+     */
+    void storeSettings(OutputStream os);
 
 }

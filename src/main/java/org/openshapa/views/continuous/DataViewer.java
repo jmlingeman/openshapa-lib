@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 
 import org.openshapa.views.component.DefaultTrackPainter;
 import org.openshapa.views.component.TrackPainter;
@@ -39,9 +39,9 @@ public interface DataViewer extends CustomActionListener {
     /**
      * Get the display window.
      *
-     * @return A JFrame that will be displayed.
+     * @return A JDialog that will be displayed.
      */
-    JFrame getParentJFrame();
+    JDialog getParentJDialog();
 
     /**
      * Sets the data feed for this viewer.

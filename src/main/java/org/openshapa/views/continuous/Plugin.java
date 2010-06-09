@@ -12,7 +12,7 @@ public interface Plugin {
     /**
      * @return A new instance of the plugins data viewer.
      */
-    DataViewer getNewDataViewer();
+    DataViewer getNewDataViewer(java.awt.Frame parent, boolean modal);
 
     /**
      * @return The filter to use when looking for files that the plugins data

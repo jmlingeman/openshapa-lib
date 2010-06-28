@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.swing.JDialog;
+import javax.swing.ImageIcon;
 
 import org.openshapa.views.component.DefaultTrackPainter;
 import org.openshapa.views.component.TrackPainter;
@@ -120,5 +121,23 @@ public interface DataViewer extends CustomActionListener {
      * @param os Output stream to write to,
      */
     void storeSettings(OutputStream os);
+
+    /**
+     * @return The icon for representing the first action button. Return
+     *          {@code null} if this action has no icon.
+     */
+    ImageIcon getActionButtonIcon1();
+
+    /**
+     * @return The icon for representing the second action button. Return
+     *          {@code null} if this action has no icon.
+     */
+    ImageIcon getActionButtonIcon2();
+
+    /**
+     * @return The icon for representing the third action button. Return
+     *          {@code null} if this action has no icon.
+     */
+    ImageIcon getActionButtonIcon3();
 
 }

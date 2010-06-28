@@ -46,4 +46,11 @@ public interface CustomActionListener {
      */
     ImageIcon getActionButtonIcon3();
 
+    /**
+     * Adds the given ViewerStateListener to the collection of listeners who
+     * are interested in changes made to the project.
+     * @param vsl The ViewerStateListener to add.
+     */
+    void addViewerStateListener(ViewerStateListener vsl);
+
 }

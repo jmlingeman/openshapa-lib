@@ -104,10 +104,10 @@ public abstract class TrackPainter extends JComponent {
      * @param time Time in milliseconds.
      */
     protected final int computePixelXCoord(final long time) {
-        final float ratio = viewableModel.getIntervalWidth()
+        final double ratio = viewableModel.getIntervalWidth()
             / viewableModel.getIntervalTime();
 
-        return (int) ((time * ratio)
+        return (int) Math.ceil ((time * ratio)
                 - (viewableModel.getZoomWindowStart() * ratio));
     }
 

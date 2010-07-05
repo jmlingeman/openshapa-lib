@@ -34,13 +34,17 @@ public final class ViewableModel implements Cloneable {
      * @param other Model to copy from.
      */
     protected ViewableModel(final ViewableModel other) {
+    	copyFrom(other);
+    }
+
+    public void copyFrom(final ViewableModel other) {
         end = other.end;
         intervalWidth = other.intervalWidth;
         intervalTime = other.intervalTime;
         zoomWindowStart = other.zoomWindowStart;
         zoomWindowEnd = other.zoomWindowEnd;
     }
-
+    
     /**
      * @return The end time of the longest track (offset included) in
      *         milliseconds

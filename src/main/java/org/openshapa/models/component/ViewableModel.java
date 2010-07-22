@@ -1,10 +1,14 @@
 package org.openshapa.models.component;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+
 /**
  * This model provides parameters used for determining what can be viewed on the
  * tracks information panel.
  */
-public final class ViewableModel implements Cloneable {
+public final class ViewableModel {
 
     /** The end time of the longest track (offset included) in milliseconds */
     private long end;
@@ -21,11 +25,14 @@ public final class ViewableModel implements Cloneable {
     /** The end time of the zoomed window */
     private long zoomWindowEnd;
 
+    /** Used to enable support for property change events. */
+    private PropertyChangeSupport change;
+
     /**
      * Creates a new viewable model.
      */
     public ViewableModel() {
-        // Empty constructor.
+        change = new PropertyChangeSupport(this);
     }
 
     /**
@@ -34,17 +41,59 @@ public final class ViewableModel implements Cloneable {
      * @param other Model to copy from.
      */
     protected ViewableModel(final ViewableModel other) {
-    	copyFrom(other);
+        change = new PropertyChangeSupport(this);
+        copyFrom(other);
     }
 
+    /**
+     * Copy bean values from another model. Property change listeners are not
+     * copied across. Will only fire one property change event, where the
+     * property name is "all".
+     *
+     * @param other Model to copy from.
+     */
     public void copyFrom(final ViewableModel other) {
         end = other.end;
         intervalWidth = other.intervalWidth;
         intervalTime = other.intervalTime;
         zoomWindowStart = other.zoomWindowStart;
         zoomWindowEnd = other.zoomWindowEnd;
+
+        change.firePropertyChange("all", null, this);
     }
-    
+
+    /**
+     * @see PropertyChangeSupport#addPropertyChangeListener(PropertyChangeListener)
+     */
+    public void addPropertyChangeListener(
+        final PropertyChangeListener listener) {
+        change.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#addPropertyChangeListener(String, PropertyChangeListener)
+     */
+    public void addPropertyChangeListener(final String property,
+        final PropertyChangeListener listener) {
+        change.addPropertyChangeListener(property, listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#removePropertyChangeListener(PropertyChangeListener)
+     */
+    public void removePropertyChangeListener(
+        final PropertyChangeListener listener) {
+        change.removePropertyChangeListener(listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#removePropertyChangeListener(String, PropertyChangeListener)
+     */
+    public void removePropertyChangeListener(final String property,
+        final PropertyChangeListener listener) {
+        change.removePropertyChangeListener(property, listener);
+    }
+
     /**
      * @return The end time of the longest track (offset included) in
      *         milliseconds
@@ -59,7 +108,9 @@ public final class ViewableModel implements Cloneable {
      * @param end end time to use.
      */
     public void setEnd(final long end) {
+        long old = this.end;
         this.end = end;
+        change.firePropertyChange("end", old, end);
     }
 
     /**
@@ -75,7 +126,9 @@ public final class ViewableModel implements Cloneable {
      * @param intervalTime interval time to use.
      */
     public void setIntervalTime(final float intervalTime) {
+        float old = this.intervalTime;
         this.intervalTime = intervalTime;
+        change.firePropertyChange("intervalTime", old, intervalTime);
     }
 
     /**
@@ -91,7 +144,9 @@ public final class ViewableModel implements Cloneable {
      * @param intervalWidth interval width to use.
      */
     public void setIntervalWidth(final float intervalWidth) {
+        float old = this.intervalWidth;
         this.intervalWidth = intervalWidth;
+        change.firePropertyChange("intervalWidth", old, intervalWidth);
     }
 
     /**
@@ -107,7 +162,9 @@ public final class ViewableModel implements Cloneable {
      * @param zoomWindowEnd zoom window end time
      */
     public void setZoomWindowEnd(final long zoomWindowEnd) {
+        long old = this.zoomWindowEnd;
         this.zoomWindowEnd = zoomWindowEnd;
+        change.firePropertyChange("zoomWindowEnd", old, zoomWindowEnd);
     }
 
     /**
@@ -125,7 +182,9 @@ public final class ViewableModel implements Cloneable {
      * @param zoomWindowStart
      */
     public void setZoomWindowStart(final long zoomWindowStart) {
+        long old = this.zoomWindowStart;
         this.zoomWindowStart = zoomWindowStart;
+        change.firePropertyChange("zoomWindowStart", old, zoomWindowStart);
     }
 
     @Override public boolean equals(final Object obj) {
@@ -174,7 +233,7 @@ public final class ViewableModel implements Cloneable {
         return hash;
     }
 
-    @Override public ViewableModel clone() {
+    public ViewableModel copy() {
         return new ViewableModel(this);
     }
 

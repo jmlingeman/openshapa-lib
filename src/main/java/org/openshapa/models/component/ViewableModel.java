@@ -59,7 +59,7 @@ public final class ViewableModel {
         zoomWindowStart = other.zoomWindowStart;
         zoomWindowEnd = other.zoomWindowEnd;
 
-        change.firePropertyChange("all", null, this);
+        change.firePropertyChange(null, null, null);
     }
 
     /**

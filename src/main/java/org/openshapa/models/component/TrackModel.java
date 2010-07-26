@@ -1,10 +1,14 @@
 package org.openshapa.models.component;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
+
 /**
  * This model provides data feed information used to render a carriage on the
  * tracks interface.
  */
-public final class TrackModel implements Cloneable {
+public final class TrackModel {
 
     /** Enumeration for defining track state. */
     public static enum TrackState {
@@ -43,11 +47,14 @@ public final class TrackModel implements Cloneable {
     /** Is the track's movement locked */
     private boolean locked;
 
+    /** Used to enable support for property change events. */
+    private PropertyChangeSupport change;
+
     /**
      * Creates a new track model.
      */
     public TrackModel() {
-        // Empty constructor.
+        change = new PropertyChangeSupport(this);
     }
 
     /**
@@ -56,6 +63,7 @@ public final class TrackModel implements Cloneable {
      * @param other Model to copy from.
      */
     protected TrackModel(final TrackModel other) {
+        change = new PropertyChangeSupport(this);
         duration = other.duration;
         offset = other.offset;
         bookmark = other.bookmark;
@@ -64,6 +72,38 @@ public final class TrackModel implements Cloneable {
         trackName = other.trackName;
         state = other.state;
         locked = other.locked;
+    }
+
+    /**
+     * @see PropertyChangeSupport#addPropertyChangeListener(PropertyChangeListener)
+     */
+    public void addPropertyChangeListener(
+        final PropertyChangeListener listener) {
+        change.addPropertyChangeListener(listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#addPropertyChangeListener(String, PropertyChangeListener)
+     */
+    public void addPropertyChangeListener(final String property,
+        final PropertyChangeListener listener) {
+        change.addPropertyChangeListener(property, listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#removePropertyChangeListener(PropertyChangeListener)
+     */
+    public void removePropertyChangeListener(
+        final PropertyChangeListener listener) {
+        change.removePropertyChangeListener(listener);
+    }
+
+    /**
+     * @see PropertyChangeSupport#removePropertyChangeListener(String, PropertyChangeListener)
+     */
+    public void removePropertyChangeListener(final String property,
+        final PropertyChangeListener listener) {
+        change.removePropertyChangeListener(property, listener);
     }
 
     /**
@@ -77,7 +117,9 @@ public final class TrackModel implements Cloneable {
      * @param locked lock state to set.
      */
     public void setLocked(final boolean locked) {
+        boolean old = this.locked;
         this.locked = locked;
+        change.firePropertyChange("locked", old, locked);
     }
 
     /**
@@ -93,7 +135,9 @@ public final class TrackModel implements Cloneable {
      * @param duration the new duration.
      */
     public void setDuration(final long duration) {
+        long old = this.duration;
         this.duration = duration;
+        change.firePropertyChange("duration", old, duration);
     }
 
     /**
@@ -109,7 +153,9 @@ public final class TrackModel implements Cloneable {
      * @param offset the new offset.
      */
     public void setOffset(final long offset) {
+        long old = this.offset;
         this.offset = offset;
+        change.firePropertyChange("offset", old, offset);
     }
 
     /**
@@ -127,7 +173,9 @@ public final class TrackModel implements Cloneable {
      * @param trackId track id to use.
      */
     public void setTrackId(final String trackId) {
+        String old = this.trackId;
         this.trackId = trackId;
+        change.firePropertyChange("trackId", old, trackId);
     }
 
     /**
@@ -143,7 +191,9 @@ public final class TrackModel implements Cloneable {
      * @param erroneous true if erroneous, false otherwise.
      */
     public void setErroneous(final boolean erroneous) {
+        boolean old = this.erroneous;
         this.erroneous = erroneous;
+        change.firePropertyChange("erroneous", old, erroneous);
     }
 
     /**
@@ -159,7 +209,9 @@ public final class TrackModel implements Cloneable {
      * @param bookmark new bookmark position in milliseconds
      */
     public void setBookmark(final long bookmark) {
+        long old = this.bookmark;
         this.bookmark = bookmark;
+        change.firePropertyChange("bookmark", old, bookmark);
     }
 
     /**
@@ -175,7 +227,9 @@ public final class TrackModel implements Cloneable {
      * @param trackName the new track name
      */
     public void setTrackName(final String trackName) {
+        String old = this.trackName;
         this.trackName = trackName;
+        change.firePropertyChange("trackName", old, trackName);
     }
 
     /**
@@ -191,12 +245,15 @@ public final class TrackModel implements Cloneable {
      * @param selected true if selected, false otherwise.
      */
     public void setSelected(final boolean selected) {
+        boolean old = isSelected();
 
         if (selected) {
             state = TrackState.SELECTED;
         } else {
             state = TrackState.NORMAL;
         }
+
+        change.firePropertyChange("selected", old, selected);
     }
 
     /**
@@ -205,7 +262,9 @@ public final class TrackModel implements Cloneable {
      * @param state new state to use.
      */
     public void setState(final TrackState state) {
+        TrackState old = this.state;
         this.state = state;
+        change.firePropertyChange("state", old, state);
     }
 
     /**
@@ -306,7 +365,7 @@ public final class TrackModel implements Cloneable {
         return true;
     }
 
-    @Override public TrackModel clone() {
+    public TrackModel copy() {
         return new TrackModel(this);
     }
 

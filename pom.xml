@@ -4,6 +4,17 @@
   <groupId>org.openshapa</groupId>
   <artifactId>openshapa-lib</artifactId>
   <packaging>jar</packaging>
+  <!--
+
+       openshapa-lib version.
+
+       =========================================================================
+       MAKE SURE YOU ALSO EDIT:
+       =========================================================================
+         * openshapa/pom.xml (multiple locations)
+         * openshapa/Info.plist - so that the OSX build works correctly.
+
+  -->
   <version>0.0.21</version>
   <name>openshapa-lib</name>
   <url>http://openshapa.org</url>

@@ -4,7 +4,7 @@
   <groupId>org.openshapa</groupId>
   <artifactId>openshapa-lib</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.20</version>
+  <version>0.0.21</version>
   <name>openshapa-lib</name>
   <url>http://openshapa.org</url>
 
@@ -68,6 +68,28 @@
           </plugin>
         </plugins>
       </build>
+      <dependencies>
+        <dependency>
+          <groupId>net.java.dev.jna</groupId>
+          <artifactId>jna</artifactId>
+          <version>3.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt.carbon</groupId>
+            <artifactId>macosx</artifactId>
+            <version>3.3.0-v3346</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt.win32.win32</groupId>
+            <artifactId>x86</artifactId>
+            <version>3.3.0-v3346</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.swt.gtk.linux</groupId>
+            <artifactId>x86_64</artifactId>
+            <version>3.3.0-v3346</version>
+        </dependency>
+      </dependencies>
     </profile>
   </profiles>
 

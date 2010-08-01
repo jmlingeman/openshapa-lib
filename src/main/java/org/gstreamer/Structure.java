@@ -160,6 +160,10 @@ public class Structure extends NativeObject {
     public String getString(String fieldName, int i) {
     	return getValueList(fieldName).getString(i);
     }
+    public Object getValue(String fieldName) {
+    	GValue value = gst.gst_structure_get_value(this, fieldName);
+    	return value != null ? value.toJava() : null;
+    }
     /**
      * 
      * @param fieldName
@@ -234,6 +238,9 @@ public class Structure extends NativeObject {
     }
     public void setDouble(String field, Double value) {
         gst.gst_structure_set(this, field, GType.DOUBLE, value);
+    }
+    public void setPointer(String field, Pointer value) {
+        gst.gst_structure_set(this, field, GType.POINTER, value);
     }
     public void setIntegerRange(String field, Integer min, Integer max) {
         gst.gst_structure_set(this, field, 

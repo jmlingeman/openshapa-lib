@@ -85,6 +85,9 @@ public interface GValueAPI extends Library {
             } else if (g_type.equals(GType.DOUBLE)) { return toDouble();
             } else if (g_type.equals(GType.STRING)) { return toJavaString();
             } else if (g_type.equals(GType.OBJECT)) { return toObject();
+            } else if (g_type.equals(GType.POINTER)) { return toPointer();
+            } else {
+            	// object type not supported!
             }
             return null;
         }
@@ -139,6 +142,10 @@ public interface GValueAPI extends Library {
         
         public Object toObject() {
         	return g_type.equals(GType.OBJECT) ? GVALUE_API.g_value_get_object(this) : null;
+        }
+        
+        public Pointer toPointer() {
+        	return g_type.equals(GType.POINTER) ? GVALUE_API.g_value_get_pointer(this) : null;
         }
         
         public String toString() {
@@ -203,6 +210,7 @@ public interface GValueAPI extends Library {
     void g_value_set_string(GValue value, String v_string);
     void g_value_set_static_string (GValue value, String v_string);
     String g_value_get_string(GValue value);
+    Pointer g_value_get_pointer(GValue value);
     boolean g_value_type_compatible(GType src_type, GType dest_type);
     boolean g_value_type_transformable(GType src_type, GType dest_type);
     boolean g_value_transform(GValue src_value, GValue dest_value);

@@ -157,17 +157,6 @@ public final class ViewableModel {
     }
 
     /**
-     * Set the end time of the zoomed window.
-     *
-     * @param zoomWindowEnd zoom window end time
-     */
-    public void setZoomWindowEnd(final long zoomWindowEnd) {
-        long old = this.zoomWindowEnd;
-        this.zoomWindowEnd = zoomWindowEnd;
-        change.firePropertyChange("zoomWindowEnd", old, zoomWindowEnd);
-    }
-
-    /**
      * Set the start time of the zoomed window.
      *
      * @return The start time of the zoomed window
@@ -177,14 +166,26 @@ public final class ViewableModel {
     }
 
     /**
-     * Set the start time of the zoomed window
-     *
-     * @param zoomWindowStart
+     * Set the start and end time of the zoomed window.
+     * @param start Start time in milliseconds.
+     * @param end End time in milliseconds.
      */
-    public void setZoomWindowStart(final long zoomWindowStart) {
-        long old = this.zoomWindowStart;
-        this.zoomWindowStart = zoomWindowStart;
-        change.firePropertyChange("zoomWindowStart", old, zoomWindowStart);
+    public void setZoomWindow(final long start, final long end) {
+        assert start <= end;
+        assert start >= 0;
+
+        if (start > end) {
+            throw new IllegalArgumentException("Start must be <= end");
+        }
+
+        if (start < 0) {
+            throw new IllegalArgumentException("Start must be >= 0");
+        }
+
+        this.zoomWindowStart = start;
+        this.zoomWindowEnd = end;
+
+        change.firePropertyChange(null, null, null);
     }
 
     @Override public boolean equals(final Object obj) {

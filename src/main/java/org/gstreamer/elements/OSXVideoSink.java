@@ -11,14 +11,21 @@ import org.gstreamer.swing.OSXVideoComponent;
 
 import com.sun.jna.Pointer;
 
+/**
+ * 
+ * @author dave
+ *
+ */
 public class OSXVideoSink extends BaseSink {
     public OSXVideoSink(String name) {
         this(makeRawElement("osxvideosink", name));
         set("embed", true);
+        setQOSEnabled(false);
     }
 
     public OSXVideoSink(Initializer init) {
         super(init);
+        setQOSEnabled(false);
     }
     
     public void setEmbedded(boolean embed) {

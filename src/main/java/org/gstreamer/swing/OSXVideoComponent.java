@@ -5,10 +5,19 @@ import java.awt.Dimension;
 import com.apple.eawt.CocoaComponent;
 import com.sun.jna.Pointer;
 
+
 public class OSXVideoComponent extends CocoaComponent {
 	public OSXVideoComponent(final Pointer nsview) {
+		this(nsview, false);
+	}
+	
+	public OSXVideoComponent(final Pointer nsview, boolean enableCocoaCompatibilityMode) {
 		assert nsview != null;
 		this.nsview = nsview;
+		
+		if (!enableCocoaCompatibilityMode) {
+			System.setProperty("com.apple.eawt.CocoaComponent.CompatibilityMode", "false"); 
+		}
 	}
 
 	private final Pointer nsview;

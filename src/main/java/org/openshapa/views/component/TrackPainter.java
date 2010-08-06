@@ -6,16 +6,21 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Polygon;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import javax.swing.JComponent;
 
+import org.openshapa.models.component.MixerView;
 import org.openshapa.models.component.TrackModel;
-import org.openshapa.models.component.ViewableModel;
+import org.openshapa.models.component.Viewport;
 
 
 /**
  * This class is used to paint a track and its information.
  */
-public abstract class TrackPainter extends JComponent {
+public abstract class TrackPainter extends JComponent
+    implements PropertyChangeListener {
 
     /** Fill colour of a carriage in the unselected/normal state */
     protected static final Color DEFAULT_NORMAL_CARRIAGE_COLOR = new Color(169,
@@ -53,7 +58,7 @@ public abstract class TrackPainter extends JComponent {
     protected TrackModel trackModel;
 
     /** Model containing information about visibility parameters. */
-    protected ViewableModel viewableModel;
+    protected MixerView mixer;
 
     /**
      * Creates a new TrackPainter.
@@ -67,6 +72,11 @@ public abstract class TrackPainter extends JComponent {
         selectedOutlineColor = DEFAULT_SELECTED_OUTLINE_COLOR;
     }
 
+    public final void setMixerView(final MixerView mixer) {
+        this.mixer = mixer;
+        mixer.addPropertyChangeListener(this);
+    }
+
     /**
      * Set the track model.
      *
@@ -77,14 +87,9 @@ public abstract class TrackPainter extends JComponent {
         repaint();
     }
 
-    /**
-     * Set the viewable model.
-     *
-     * @param newModel The new viewable model to use.
-     */
-    public final void setViewableModel(final ViewableModel newModel) {
-        viewableModel = newModel;
-        repaint();
+    public void deregister() {
+        mixer.removePropertyChangeListener(this);
+        mixer = null;
     }
 
     /**
@@ -98,20 +103,8 @@ public abstract class TrackPainter extends JComponent {
         return true;
     }
 
-    /**
-     * Computes the pixel x-coordinate for a given time.
-     *
-     * @param time Time in milliseconds.
-     */
-    protected final int computePixelXCoord(final long time) {
-        final double ratio = viewableModel.getIntervalWidth()
-            / viewableModel.getIntervalTime();
-
-        return (int) Math.ceil ((time * ratio)
-                - (viewableModel.getZoomWindowStart() * ratio));
-    }
-
     @Override protected final void paintComponent(final Graphics g) {
+        Viewport viewport = mixer.getViewport();
         Graphics g2 = g.create();
 
         Dimension size = getSize();
@@ -138,10 +131,11 @@ public abstract class TrackPainter extends JComponent {
         final int carriageYOffset = (int) (size.getHeight() * 2D / 10D);
 
         // Calculate carriage start and end pixel positions
-        final int startXPos = computePixelXCoord(trackModel.getOffset());
+        final int startXPos = (int) viewport.computePixelXOffset(
+                trackModel.getOffset());
 
-        final int endXPos = computePixelXCoord(trackModel.getDuration()
-                + trackModel.getOffset());
+        final int endXPos = (int) viewport.computePixelXOffset(
+                trackModel.getDuration() + trackModel.getOffset());
 
         // The carriage
         carriagePolygon = new Polygon();
@@ -188,8 +182,8 @@ public abstract class TrackPainter extends JComponent {
         }
 
         // Paint the bookmark marker
-        final int bookmarkXPos = computePixelXCoord(trackModel.getOffset()
-                + trackModel.getBookmark());
+        final int bookmarkXPos = (int) viewport.computePixelXOffset(
+                trackModel.getOffset() + trackModel.getBookmark());
 
         g2.drawLine(bookmarkXPos, carriageYOffset, bookmarkXPos,
             carriageYOffset + carriageHeight);
@@ -232,5 +226,13 @@ public abstract class TrackPainter extends JComponent {
      * @param g Graphics object.
      */
     protected abstract void paintCustom(final Graphics g);
+
+    public void propertyChange(final PropertyChangeEvent evt) {
+
+        if (Viewport.NAME.equals(evt.getPropertyName())) {
+            repaint();
+        }
+    }
+
 
 }

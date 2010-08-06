@@ -15,7 +15,7 @@
          * openshapa/Info.plist - so that the OSX build works correctly.
 
   -->
-  <version>0.0.23</version>
+  <version>0.0.30</version>
   <name>openshapa-lib</name>
   <url>http://openshapa.org</url>
 

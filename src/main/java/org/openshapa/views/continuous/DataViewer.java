@@ -5,7 +5,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.swing.JDialog;
-import javax.swing.ImageIcon;
+
+import org.openshapa.models.id.Identifier;
 
 import org.openshapa.views.component.DefaultTrackPainter;
 import org.openshapa.views.component.TrackPainter;
@@ -15,6 +16,18 @@ import org.openshapa.views.component.TrackPainter;
  * DataViewer interface.
  */
 public interface DataViewer extends CustomActionListener {
+
+    /**
+     * Sets the identifier used to identify this data viewer.
+     *
+     * @param id Identifier to use.
+     */
+    void setIdentifier(Identifier id);
+
+    /**
+     * @return Identifier used to identify this data viewer.
+     */
+    Identifier getIdentifier();
 
     /**
      * Retrieve the duration of the underlying data stream.
@@ -112,13 +125,15 @@ public interface DataViewer extends CustomActionListener {
 
     /**
      * Read settings from the given input stream.
+     *
      * @param is Input stream to load from.
      */
     void loadSettings(InputStream is);
 
     /**
      * Write settings to the given output stream.
-     * @param os Output stream to write to,
+     *
+     * @param os Output stream to write to.
      */
     void storeSettings(OutputStream os);
 

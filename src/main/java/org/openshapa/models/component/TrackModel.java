@@ -3,6 +3,8 @@ package org.openshapa.models.component;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+import org.openshapa.models.id.Identifier;
+
 
 /**
  * This model provides data feed information used to render a carriage on the
@@ -23,6 +25,9 @@ public final class TrackModel {
         SNAPPED
     }
 
+    /** Track identifier. */
+    private Identifier id;
+
     /** The duration of the track in milliseconds */
     private long duration;
 
@@ -35,8 +40,8 @@ public final class TrackModel {
     /** Is there an error with track information */
     private boolean erroneous;
 
-    /** Track identifier, this is currently just the track's absolute file path */
-    private String trackId;
+    /** Absolute media path for this track. */
+    private String mediaPath;
 
     /** Name of this track */
     private String trackName;
@@ -68,10 +73,11 @@ public final class TrackModel {
         offset = other.offset;
         bookmark = other.bookmark;
         erroneous = other.erroneous;
-        trackId = other.trackId;
+        mediaPath = other.mediaPath;
         trackName = other.trackName;
         state = other.state;
         locked = other.locked;
+        id = other.id;
     }
 
     /**
@@ -159,23 +165,21 @@ public final class TrackModel {
     }
 
     /**
-     * @return Track identifier, this is currently just the track's absolute
-     *         file path
+     * @return absolute media path.
      */
-    public String getTrackId() {
-        return trackId;
+    public String getMediaPath() {
+        return mediaPath;
     }
 
     /**
-     * Sets the track identifier, this is currently just the track's absolute
-     * file path
+     * Sets the absolute media path that this track represents.
      *
-     * @param trackId track id to use.
+     * @param path absolute media path.
      */
-    public void setTrackId(final String trackId) {
-        String old = this.trackId;
-        this.trackId = trackId;
-        change.firePropertyChange("trackId", old, trackId);
+    public void setMediaPath(final String path) {
+        String old = this.mediaPath;
+        mediaPath = path;
+        change.firePropertyChange("mediaPath", old, path);
     }
 
     /**
@@ -274,6 +278,27 @@ public final class TrackModel {
         return state;
     }
 
+    /**
+     * @param id Identifier to use.
+     */
+    public void setId(final Identifier id) {
+        this.id = id;
+    }
+
+    /**
+     * @return ID of the track.
+     */
+    public Identifier getId() {
+        return id;
+    }
+
+    /**
+     * @return A copy of the track model but with a new ID.
+     */
+    public TrackModel copy() {
+        return new TrackModel(this);
+    }
+
     /*
      * (non-Javadoc)
      * @see java.lang.Object#hashCode()
@@ -288,7 +313,7 @@ public final class TrackModel {
         result = (prime * result) + (int) (offset ^ (offset >>> 32));
         result = (prime * result) + ((state == null) ? 0 : state.hashCode());
         result = (prime * result)
-            + ((trackId == null) ? 0 : trackId.hashCode());
+            + ((mediaPath == null) ? 0 : mediaPath.hashCode());
         result = (prime * result)
             + ((trackName == null) ? 0 : trackName.hashCode());
 
@@ -344,12 +369,12 @@ public final class TrackModel {
             return false;
         }
 
-        if (trackId == null) {
+        if (mediaPath == null) {
 
-            if (other.trackId != null) {
+            if (other.mediaPath != null) {
                 return false;
             }
-        } else if (!trackId.equals(other.trackId)) {
+        } else if (!mediaPath.equals(other.mediaPath)) {
             return false;
         }
 
@@ -363,10 +388,6 @@ public final class TrackModel {
         }
 
         return true;
-    }
-
-    public TrackModel copy() {
-        return new TrackModel(this);
     }
 
     @Override public String toString() {
@@ -384,7 +405,7 @@ public final class TrackModel {
         builder.append(", state=");
         builder.append(state);
         builder.append(", trackId=");
-        builder.append(trackId);
+        builder.append(mediaPath);
         builder.append(", trackName=");
         builder.append(trackName);
         builder.append("]");

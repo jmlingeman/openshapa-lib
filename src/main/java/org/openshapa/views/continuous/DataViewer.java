@@ -15,7 +15,7 @@ import org.openshapa.views.component.TrackPainter;
 /**
  * DataViewer interface.
  */
-public interface DataViewer extends CustomActionListener {
+public interface DataViewer {
 
     /**
      * Sets the identifier used to identify this data viewer.
@@ -136,5 +136,26 @@ public interface DataViewer extends CustomActionListener {
      * @param os Output stream to write to.
      */
     void storeSettings(OutputStream os);
+
+    /**
+     * Adds the given ViewerStateListener to the collection of listeners who
+     * are interested in changes made to the project.
+     * @param vsl The ViewerStateListener to add.
+     */
+    void addViewerStateListener(ViewerStateListener vsl);
+
+    /**
+     * Removes the given ViewerStateListener from the collection of listeners.
+     * @param vsl The listener to remove.
+     */
+    void removeViewerStateListener(ViewerStateListener vsl);
+
+    /**
+     * Used to query the data viewer for custom actions.
+     *
+     * @return custom actions handler.
+     * @see CustomActionsAdapter
+     */
+    CustomActions getCustomActions();
 
 }

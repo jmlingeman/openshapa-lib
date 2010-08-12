@@ -47,18 +47,4 @@ public interface Plugin {
      */
     String getClassifier();
 
-    /**
-     * @return True if the first custom action is supported. False otherwise.
-     */
-    boolean isActionSupported1();
-
-    /**
-     * @return True if the second custom action is supported. False otherwise.
-     */
-    boolean isActionSupported2();
-
-    /**
-     * @return True if the third custom action is supported. False otherwise.
-     */
-    boolean isActionSupported3();
 }

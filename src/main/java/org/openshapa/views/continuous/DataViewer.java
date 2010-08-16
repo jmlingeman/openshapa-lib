@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.swing.JDialog;
+import org.openshapa.models.db.SimpleDatabase;
 
 import org.openshapa.models.id.Identifier;
 
@@ -157,5 +158,12 @@ public interface DataViewer {
      * @see CustomActionsAdapter
      */
     CustomActions getCustomActions();
+
+    /**
+     * Sets the SimpleDatabase from which this viewer can extract data.
+     *
+     * @param sDB The SimpleDatabase to use.
+     */
+    void setSimpleDatabase(final SimpleDatabase sDB);
 
 }

@@ -166,4 +166,11 @@ public interface DataViewer {
      */
     void setSimpleDatabase(final SimpleDatabase sDB);
 
+    /**
+     * Unload all data, to prepare for being closed- essentially the opposite
+     * of setDataFeed. Can be called to reduce the data viewer to a low-resource
+     * state.
+     */
+    void clearDataFeed();
+
 }

@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.swing.JDialog;
-import org.openshapa.models.db.SimpleDatabase;
+import org.openshapa.models.db.Datastore;
 
 import org.openshapa.models.id.Identifier;
 
@@ -164,7 +164,7 @@ public interface DataViewer {
      *
      * @param sDB The SimpleDatabase to use.
      */
-    void setSimpleDatabase(final SimpleDatabase sDB);
+    void setSimpleDatabase(final Datastore sDB);
 
     /**
      * Unload all data, to prepare for being closed- essentially the opposite

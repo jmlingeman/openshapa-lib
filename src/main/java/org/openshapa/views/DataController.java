@@ -1,4 +1,6 @@
-package org.openshapa.views.continuous;
+package org.openshapa.views;
+
+import org.openshapa.plugins.DataViewer;
 
 /**
  * Creators of plugins DO NOT NEED TO IMPLEMENT this class - the method

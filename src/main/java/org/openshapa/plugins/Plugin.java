@@ -1,4 +1,4 @@
-package org.openshapa.views.continuous;
+package org.openshapa.plugins;
 
 import javax.swing.ImageIcon;
 

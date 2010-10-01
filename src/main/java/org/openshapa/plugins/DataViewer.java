@@ -1,4 +1,4 @@
-package org.openshapa.views.continuous;
+package org.openshapa.plugins;
 
 import java.io.File;
 import java.io.InputStream;
@@ -9,6 +9,7 @@ import org.openshapa.models.db.Datastore;
 
 import org.openshapa.models.id.Identifier;
 
+import org.openshapa.views.DataController;
 import org.openshapa.views.component.DefaultTrackPainter;
 import org.openshapa.views.component.TrackPainter;
 

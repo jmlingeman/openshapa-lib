@@ -160,11 +160,11 @@ public interface DataViewer {
     CustomActions getCustomActions();
 
     /**
-     * Sets the SimpleDatabase from which this viewer can extract data.
+     * Sets the Datastore from which this viewer can extract data.
      *
-     * @param sDB The SimpleDatabase to use.
+     * @param sDB The Datastore to use.
      */
-    void setSimpleDatabase(final Datastore sDB);
+    void setDatastore(final Datastore sDB);
 
     /**
      * Unload all data, to prepare for being closed- essentially the opposite

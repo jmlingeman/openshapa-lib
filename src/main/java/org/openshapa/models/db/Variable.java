@@ -17,10 +17,15 @@ public interface Variable {
     /**
      * @return All the cells stored in the variable.
      */
-    public List<Cell> getCells();
+    List<Cell> getCells();
+
+    /**
+     * @return All the cells stored in the variable using a temporal order.
+     */
+    List<Cell> getCellsTemporally();
 
     /**
      * @return The name of the variable as a string.
      */
-    public String getName();
+    String getName();
 }

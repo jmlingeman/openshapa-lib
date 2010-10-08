@@ -1,23 +1,25 @@
 package org.openshapa.models.db;
 
 /**
- * Holds a value as a string, and offset / onset as millisecond timestamps.
- * Relates to a DataCell.
+ * Represents a cell in the OpenSHAPA spreadsheet.
  */
 public interface Cell {
 
     /**
-     * @return The offset timestamp in milliseconds.
+     * @return The offset timestamp in milliseconds. Returns -1 if the offset
+     * cannot be resolved.
      */
     long getOffset();
 
     /**
-     * @return The onset timestamp in milliseconds.
+     * @return The onset timestamp in milliseconds. Returns -1 if the onset
+     * cannot be resolved.
      */
     long getOnset();
 
     /**
-     * @return The value stored in the cell as a string.
+     * @return The value stored in the cell as a string. Returns null if the
+     * string value cannot be resolved.
      */
     String getValue();
 }

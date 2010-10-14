@@ -66,4 +66,8 @@ public interface Viewport {
 
     boolean isOffsetInViewport(double offset);
 
+    /**
+     * @return whether the entire track (from time 0 until {@link #getMaxEnd()}) is visible in the current viewport
+     */
+    boolean isEntireTrackVisible();
 }

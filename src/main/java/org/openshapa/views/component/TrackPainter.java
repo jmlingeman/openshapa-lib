@@ -131,11 +131,11 @@ public abstract class TrackPainter extends JComponent
         final int carriageYOffset = (int) (size.getHeight() * 2D / 10D);
 
         // Calculate carriage start and end pixel positions
-        final int startXPos = (int) viewport.computePixelXOffset(
-                trackModel.getOffset());
+        final int startXPos = (int) Math.round(viewport.computePixelXOffset(
+                trackModel.getOffset()));
 
-        final int endXPos = (int) viewport.computePixelXOffset(
-                trackModel.getDuration() + trackModel.getOffset());
+        final int endXPos = (int) Math.round(viewport.computePixelXOffset(
+                trackModel.getDuration() + trackModel.getOffset()));
 
         // The carriage
         carriagePolygon = new Polygon();
@@ -182,8 +182,8 @@ public abstract class TrackPainter extends JComponent
         }
 
         // Paint the bookmark marker
-        final int bookmarkXPos = (int) viewport.computePixelXOffset(
-                trackModel.getOffset() + trackModel.getBookmark());
+        final int bookmarkXPos = (int) Math.round(viewport.computePixelXOffset(
+                trackModel.getOffset() + trackModel.getBookmark()));
 
         g2.drawLine(bookmarkXPos, carriageYOffset, bookmarkXPos,
             carriageYOffset + carriageHeight);

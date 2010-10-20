@@ -60,6 +60,11 @@ public interface DataViewer {
     JDialog getParentJDialog();
 
     /**
+     * Hides or shows the windows associated with this data viewer.
+     */
+    void setDataViewerVisible(boolean isVisible);
+    
+    /**
      * Sets the data feed for this viewer.
      *
      * @param dataFeed The new data feed for this viewer.

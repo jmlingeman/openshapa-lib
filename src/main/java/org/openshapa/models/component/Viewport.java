@@ -49,7 +49,7 @@ public interface Viewport {
      * Computes the pixel x-coordinate offset for a given time.
      *
      * @param time Time in milliseconds.
-     * @return the pixel x-coordinate offset for a given time.
+     * @return the pixel x-coordinate offset for a given time, where 0 corresponds to {@link #getViewStart()}
      */
     double computePixelXOffset(long time);
 

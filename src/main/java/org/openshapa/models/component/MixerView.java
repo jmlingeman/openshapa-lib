@@ -13,8 +13,9 @@ public interface MixerView {
 
     /**
      * @param maxEnd
+     * @param resetViewportWindow 
      */
-    void setViewportMaxEnd(long maxEnd);
+    void setViewportMaxEnd(long maxEnd, boolean resetViewportWindow);
 
     /**
      *

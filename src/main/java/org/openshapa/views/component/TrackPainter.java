@@ -58,7 +58,7 @@ public abstract class TrackPainter extends JComponent
     protected TrackModel trackModel;
 
     /** Model containing information about visibility parameters. */
-    protected MixerModel mixer;
+    protected MixerModel mixerModel;
 
     /**
      * Creates a new TrackPainter.
@@ -72,9 +72,9 @@ public abstract class TrackPainter extends JComponent
         selectedOutlineColor = DEFAULT_SELECTED_OUTLINE_COLOR;
     }
 
-    public final void setMixerView(final MixerModel mixer) {
-        this.mixer = mixer;
-        mixer.getViewportModel().addPropertyChangeListener(this);
+    public final void setMixerView(final MixerModel mixerModel) {
+        this.mixerModel = mixerModel;
+        mixerModel.getViewportModel().addPropertyChangeListener(this);
     }
 
     /**
@@ -88,8 +88,8 @@ public abstract class TrackPainter extends JComponent
     }
 
     public void deregister() {
-        mixer.removePropertyChangeListener(this);
-        mixer = null;
+        mixerModel.removePropertyChangeListener(this);
+        mixerModel = null;
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class TrackPainter extends JComponent
     }
 
     @Override protected final void paintComponent(final Graphics g) {
-        ViewportState viewport = mixer.getViewportModel().getViewport();
+        ViewportState viewport = mixerModel.getViewportModel().getViewport();
         Graphics g2 = g.create();
 
         Dimension size = getSize();
@@ -228,8 +228,7 @@ public abstract class TrackPainter extends JComponent
     protected abstract void paintCustom(final Graphics g);
 
     public void propertyChange(final PropertyChangeEvent evt) {
-
-        if (ViewportState.NAME.equals(evt.getPropertyName())) {
+        if (evt.getSource() == mixerModel.getViewportModel()) {
             repaint();
         }
     }

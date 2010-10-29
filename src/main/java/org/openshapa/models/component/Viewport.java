@@ -1,11 +1,30 @@
 package org.openshapa.models.component;
 
 /**
- * Defines constraints of the tracks view.
+ * Defines constraints of the tracks view. The properties of this object are immutable like with {@link java.lang.String} objects.
+ * <p>
+ * For thread safety, any code that works with viewports should retrieve a reference to a <code>Viewport</code> object <b>once</b>
+ * and make all subsequent calls for the current task through the <b>same</b> object, e.g.:
+ * <p>
+ * <code>
+ *     final Viewport viewport = controller.getViewport();
+ *     final long viewStart = viewport.getViewStart();
+ *     final long viewEnd = viewport.getViewEnd();
+ *     final long timestamp = ...
+ *     final boolean isTimeInViewport = viewStart <= timestamp && timestamp <= viewEnd; 
+ * </code>
+ * <p>
+ * Viewports may change on another thread, therefore you should <b>NOT</b> write code in the following way:
+ * <p>
+ * <code>
+ *     final long viewStart = controller.getViewport().getViewStart(); // THIS IS WRONG!!!
+ *     final long viewEnd = controller.getViewport().getViewEnd();     // THIS IS WRONG!!!
+ *     final long timestamp = ...
+ *     final boolean isTimeInViewport = viewStart <= timestamp && timestamp <= viewEnd(); 
+ * </code>
  */
 public interface Viewport {
-
-    static final String NAME = "viewport";
+    static final String NAME = Viewport.class.getName();
 
     /**
      * @return Maximum valid timestamp in milliseconds. Inclusive.

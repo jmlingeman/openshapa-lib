@@ -11,7 +11,7 @@ import java.beans.PropertyChangeListener;
 
 import javax.swing.JComponent;
 
-import org.openshapa.models.component.MixerView;
+import org.openshapa.models.component.MixerModel;
 import org.openshapa.models.component.TrackModel;
 import org.openshapa.models.component.Viewport;
 
@@ -58,7 +58,7 @@ public abstract class TrackPainter extends JComponent
     protected TrackModel trackModel;
 
     /** Model containing information about visibility parameters. */
-    protected MixerView mixer;
+    protected MixerModel mixer;
 
     /**
      * Creates a new TrackPainter.
@@ -72,7 +72,7 @@ public abstract class TrackPainter extends JComponent
         selectedOutlineColor = DEFAULT_SELECTED_OUTLINE_COLOR;
     }
 
-    public final void setMixerView(final MixerView mixer) {
+    public final void setMixerView(final MixerModel mixer) {
         this.mixer = mixer;
         mixer.addPropertyChangeListener(this);
     }

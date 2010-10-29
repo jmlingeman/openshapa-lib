@@ -1,11 +1,16 @@
 package org.openshapa.models.component;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+public interface MixerModel extends MixerComponentModel {
+	/**
+	 * @return model object for the play back region boundaries
+	 */
+	RegionModel getRegionModel();
 
-
-public interface MixerView {
-
+	/**
+	 * @return model object for the play back needle
+	 */
+	NeedleModel getNeedleModel();
+	
     /**
      * @return A snapshot of the viewport's current state.
      */
@@ -49,30 +54,4 @@ public interface MixerView {
      * required.
      */
     void setViewportZoom(double zoomLevel, long centerTime);
-
-    /**
-     * @see PropertyChangeSupport#addPropertyChangeListener(PropertyChangeListener)
-     */
-    public void addPropertyChangeListener(
-        final PropertyChangeListener listener);
-
-    /**
-     * @see PropertyChangeSupport#addPropertyChangeListener(String, PropertyChangeListener)
-     */
-    public void addPropertyChangeListener(final String property,
-        final PropertyChangeListener listener);
-
-    /**
-     * @see PropertyChangeSupport#removePropertyChangeListener(PropertyChangeListener)
-     */
-    public void removePropertyChangeListener(
-        final PropertyChangeListener listener);
-
-    /**
-     * @see PropertyChangeSupport#removePropertyChangeListener(String, PropertyChangeListener)
-     */
-    public void removePropertyChangeListener(final String property,
-        final PropertyChangeListener listener);
-
-
 }

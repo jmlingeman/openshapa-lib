@@ -7,7 +7,7 @@ package org.openshapa.models.component;
  * and make all subsequent calls for the current task through the <b>same</b> object, e.g.:
  * <p>
  * <code>
- *     final Viewport viewport = controller.getViewport();
+ *     final ViewportState viewport = controller.getViewport();
  *     final long viewStart = viewport.getViewStart();
  *     final long viewEnd = viewport.getViewEnd();
  *     final long timestamp = ...
@@ -23,8 +23,8 @@ package org.openshapa.models.component;
  *     final boolean isTimeInViewport = viewStart <= timestamp && timestamp <= viewEnd(); 
  * </code>
  */
-public interface Viewport {
-    static final String NAME = Viewport.class.getName();
+public interface ViewportState {
+    static final String NAME = ViewportState.class.getName();
 
     /**
      * @return Maximum valid timestamp in milliseconds. Inclusive.
@@ -54,7 +54,7 @@ public interface Viewport {
 
     /**
      * @return Milliseconds per pixel resolution. Returns {@link Double#NaN}
-     * if {@link Viewport#getViewWidth()} is zero.
+     * if {@link ViewportState#getViewWidth()} is zero.
      */
     double getResolution();
 

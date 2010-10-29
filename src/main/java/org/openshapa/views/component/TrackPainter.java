@@ -13,7 +13,7 @@ import javax.swing.JComponent;
 
 import org.openshapa.models.component.MixerModel;
 import org.openshapa.models.component.TrackModel;
-import org.openshapa.models.component.Viewport;
+import org.openshapa.models.component.ViewportState;
 
 
 /**
@@ -74,7 +74,7 @@ public abstract class TrackPainter extends JComponent
 
     public final void setMixerView(final MixerModel mixer) {
         this.mixer = mixer;
-        mixer.addPropertyChangeListener(this);
+        mixer.getViewportModel().addPropertyChangeListener(this);
     }
 
     /**
@@ -104,7 +104,7 @@ public abstract class TrackPainter extends JComponent
     }
 
     @Override protected final void paintComponent(final Graphics g) {
-        Viewport viewport = mixer.getViewport();
+        ViewportState viewport = mixer.getViewportModel().getViewport();
         Graphics g2 = g.create();
 
         Dimension size = getSize();
@@ -229,7 +229,7 @@ public abstract class TrackPainter extends JComponent
 
     public void propertyChange(final PropertyChangeEvent evt) {
 
-        if (Viewport.NAME.equals(evt.getPropertyName())) {
+        if (ViewportState.NAME.equals(evt.getPropertyName())) {
             repaint();
         }
     }

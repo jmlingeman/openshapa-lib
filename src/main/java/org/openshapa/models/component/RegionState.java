@@ -13,7 +13,7 @@ package org.openshapa.models.component;
  *     assert duration == region.getRegionDuration();
  * </code>
  * <p>
- * @see Viewport
+ * @see ViewportState
  */
 public interface RegionState {
     static final String NAME = RegionState.class.getName();

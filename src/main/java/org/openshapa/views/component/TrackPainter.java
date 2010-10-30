@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Polygon;
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -52,7 +53,7 @@ public abstract class TrackPainter extends JComponent
     protected Color selectedOutlineColor;
 
     /** Painted region of the carriage */
-    protected Polygon carriagePolygon;
+    protected GeneralPath carriagePolygon;
 
     /** Model containing information specific to the track painter. */
     protected TrackModel trackModel;
@@ -95,7 +96,7 @@ public abstract class TrackPainter extends JComponent
     /**
      * @return The polygon representing the carriage.
      */
-    public final Polygon getCarriagePolygon() {
+    public final GeneralPath getCarriagePolygon() {
         return carriagePolygon;
     }
 
@@ -104,122 +105,86 @@ public abstract class TrackPainter extends JComponent
     }
 
     @Override protected final void paintComponent(final Graphics g) {
-        ViewportState viewport = mixerModel.getViewportModel().getViewport();
-        Graphics g2 = g.create();
+        final ViewportState viewport = mixerModel.getViewportModel().getViewport();
+        final Graphics2D g2d = (Graphics2D) g;
 
         Dimension size = getSize();
 
         // Paints the background
-        g2.setColor(Color.LIGHT_GRAY);
-        g2.fillRect(0, 0, size.width, size.height);
+        g2d.setColor(Color.LIGHT_GRAY);
+        g2d.fillRect(0, 0, size.width, size.height);
 
         // If there is an error with track information, don't paint the carriage
         if (trackModel.isErroneous()) {
-            g2.setColor(Color.red);
+            g2d.setColor(Color.red);
 
-            FontMetrics fm = g2.getFontMetrics();
+            FontMetrics fm = g2d.getFontMetrics();
             String errorMessage =
                 "Track timing information could not be calculated.";
             int width = fm.stringWidth(errorMessage);
-            g2.drawString(errorMessage, (size.width / 2) - (width / 2),
+            g2d.drawString(errorMessage, (size.width / 2) - (width / 2),
                 (size.height / 2) - (fm.getAscent() / 2));
 
             return;
         }
 
+        // paint the carriage
         final int carriageHeight = (int) (size.getHeight() * 7D / 10D);
         final int carriageYOffset = (int) (size.getHeight() * 2D / 10D);
 
-        // Calculate carriage start and end pixel positions
-        final int startXPos = (int) Math.round(viewport.computePixelXOffset(
-                trackModel.getOffset()));
+        final double startXPos = viewport.computePixelXOffset(trackModel.getOffset());
+        final double endXPos = viewport.computePixelXOffset(trackModel.getDuration() + trackModel.getOffset());
 
-        final int endXPos = (int) Math.round(viewport.computePixelXOffset(
-                trackModel.getDuration() + trackModel.getOffset()));
+        carriagePolygon = new GeneralPath();
+        carriagePolygon.moveTo(startXPos, carriageYOffset); // top left corner
+        carriagePolygon.lineTo(endXPos, carriageYOffset); // top right
+        carriagePolygon.lineTo(endXPos, carriageYOffset + carriageHeight); // bottom right
+        carriagePolygon.lineTo(startXPos, carriageYOffset + carriageHeight); // bottom left
+        carriagePolygon.closePath();
 
-        // The carriage
-        carriagePolygon = new Polygon();
+        final Color carriageColor = trackModel.isSelected() ? selectedCarriageColor : normalCarriageColor;
+        final Color outlineColor = trackModel.isSelected() ? selectedOutlineColor : normalOutlineColor;
 
-        // Top left corner
-        carriagePolygon.addPoint(startXPos, carriageYOffset);
+	    g2d.setColor(carriageColor);
+        g2d.fill(carriagePolygon);
 
-        // Top right corner
-        carriagePolygon.addPoint(endXPos, carriageYOffset);
-
-        // Bottom right corner
-        carriagePolygon.addPoint(endXPos, carriageYOffset + carriageHeight);
-
-        // Bottom left corner
-        carriagePolygon.addPoint(startXPos, carriageYOffset + carriageHeight);
-
-        // Paint the carriage
-        if (trackModel.isSelected()) {
-            g2.setColor(selectedCarriageColor);
-        } else {
-            g2.setColor(normalCarriageColor);
-        }
-
-        g2.fillPolygon(carriagePolygon);
-
-        // Paint the carriage outlines
-        if (trackModel.isSelected()) {
-            g2.setColor(selectedOutlineColor);
-        } else {
-            g2.setColor(normalOutlineColor);
-        }
-
-        g2.drawPolygon(carriagePolygon);
+        g2d.setColor(outlineColor);
+        g2d.draw(carriagePolygon);
 
         // Paint custom information, if any.
-        {
-            Graphics g3 = g.create();
+        Graphics g3 = g.create();
+        try {
             paintCustom(g3);
+        } finally {
             g3.dispose();
+            g3 = null;
         }
 
-        if (trackModel.getBookmark() < 0) {
-            return;
+        // paint the bookmarks
+        for (Long bookmark : trackModel.getBookmarks()) {
+	        final double bookmarkXPos = viewport.computePixelXOffset(trackModel.getOffset() + bookmark);
+	
+	        GeneralPath bookmarkLine = new GeneralPath();
+	        bookmarkLine.moveTo(bookmarkXPos, carriageYOffset);
+	        bookmarkLine.lineTo(bookmarkXPos, carriageYOffset + carriageHeight);
+	        g2d.draw(bookmarkLine);
+	
+	        final double diamondSize = 10;
+	        GeneralPath bookmarkDiamond = new GeneralPath();
+	        bookmarkDiamond.moveTo(bookmarkXPos, carriageYOffset - diamondSize - 1); // top
+	        bookmarkDiamond.lineTo(bookmarkXPos + diamondSize / 2, carriageYOffset - diamondSize / 2 - 1); // right
+	        bookmarkDiamond.lineTo(bookmarkXPos, carriageYOffset - 1); // bottom
+	        bookmarkDiamond.lineTo(bookmarkXPos - diamondSize / 2, carriageYOffset - diamondSize / 2 - 1); // left
+	        bookmarkDiamond.closePath();
+	
+	        g2d.setColor(carriageColor);
+            g2d.fill(bookmarkDiamond);
+
+            g2d.setColor(outlineColor);
+            g2d.draw(bookmarkDiamond);
         }
-
-        // Paint the bookmark marker
-        final int bookmarkXPos = (int) Math.round(viewport.computePixelXOffset(
-                trackModel.getOffset() + trackModel.getBookmark()));
-
-        g2.drawLine(bookmarkXPos, carriageYOffset, bookmarkXPos,
-            carriageYOffset + carriageHeight);
-
-        // Paint the bookmark diamond
-
-        Polygon bookmarkDiamond = new Polygon();
-
-        // Top of diamond
-        bookmarkDiamond.addPoint(bookmarkXPos, carriageYOffset - 10);
-
-        // Right tip of diamond
-        bookmarkDiamond.addPoint(bookmarkXPos + 5, carriageYOffset - 5);
-
-        // Bottom of diamond
-        bookmarkDiamond.addPoint(bookmarkXPos, carriageYOffset);
-
-        // Left tip of diamond
-        bookmarkDiamond.addPoint(bookmarkXPos - 5, carriageYOffset - 5);
-
-        if (trackModel.isSelected()) {
-            g2.setColor(selectedCarriageColor);
-            g2.fillPolygon(bookmarkDiamond);
-            g2.setColor(selectedOutlineColor);
-            g2.drawPolygon(bookmarkDiamond);
-        } else {
-            g2.setColor(normalCarriageColor);
-            g2.fillPolygon(bookmarkDiamond);
-            g2.setColor(normalOutlineColor);
-            g2.drawPolygon(bookmarkDiamond);
-        }
-
-        g2.dispose();
-
     }
-
+    
     /**
      * Additional painting over the track painter.
      *
@@ -232,6 +197,4 @@ public abstract class TrackPainter extends JComponent
             repaint();
         }
     }
-
-
 }

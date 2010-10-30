@@ -2,6 +2,9 @@ package org.openshapa.models.component;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.openshapa.models.id.Identifier;
 
@@ -35,7 +38,7 @@ public final class TrackModel {
     private long offset;
 
     /** Track bookmark location in milliseconds */
-    private long bookmark;
+    private List<Long> bookmarks = new ArrayList<Long> ();
 
     /** Is there an error with track information */
     private boolean erroneous;
@@ -71,7 +74,7 @@ public final class TrackModel {
         change = new PropertyChangeSupport(this);
         duration = other.duration;
         offset = other.offset;
-        bookmark = other.bookmark;
+        bookmarks = new ArrayList<Long> (other.bookmarks);
         erroneous = other.erroneous;
         mediaPath = other.mediaPath;
         trackName = other.trackName;
@@ -201,23 +204,61 @@ public final class TrackModel {
     }
 
     /**
-     * @return bookmark position in milliseconds.
+     * @return list of bookmark positions in milliseconds.
      */
-    public long getBookmark() {
-        return bookmark;
+    public List<Long> getBookmarks() {
+        final List<Long> copy = new ArrayList<Long> (bookmarks);
+        Collections.sort(copy);
+        return copy;
     }
 
     /**
-     * Set a snap bookmark position.
+     * Adds a snap bookmark position.
      *
      * @param bookmark new bookmark position in milliseconds
      */
-    public void setBookmark(final long bookmark) {
-        long old = this.bookmark;
-        this.bookmark = bookmark;
-        change.firePropertyChange("bookmark", old, bookmark);
+    public void addBookmark(final long bookmark) {
+    	if (bookmark >= 0 && !bookmarks.contains(bookmark)) {
+    		bookmarks.add((Long) bookmark);
+    		Collections.sort(bookmarks);
+            change.firePropertyChange("bookmarks", null, bookmarks);
+    	}
     }
 
+    /**
+     * Adds multiple snap bookmark positions.
+     * 
+     * @param bookmarks new bookmark positions in milliseconds
+     */
+    public void addBookmarks(final List<Long> bookmarks) {
+    	for (Long bookmark : bookmarks) {
+        	if (bookmark >= 0 && !this.bookmarks.contains(bookmark)) {
+        		this.bookmarks.add((Long) bookmark);
+        	}
+    	}
+		Collections.sort(bookmarks);
+        change.firePropertyChange("bookmarks", null, this.bookmarks);
+    }
+    
+    /**
+     * Removes a snap bookmark position.
+     *
+     * @param bookmark bookmark position in milliseconds
+     */
+    public void removeBookmark(final long bookmark) {
+    	if (bookmarks.contains(bookmark)) {
+	    	bookmarks.remove((Long) bookmark);
+	        change.firePropertyChange("bookmarks", null, bookmarks);
+    	}
+    }
+    
+    public void clearBookmarks() {
+    	if (!bookmarks.isEmpty()) {
+    		bookmarks.clear();
+	        change.firePropertyChange("bookmarks", null, bookmarks);
+    	}
+    }
+    
     /**
      * @return the trackName
      */
@@ -306,7 +347,7 @@ public final class TrackModel {
     @Override public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = (prime * result) + (int) (bookmark ^ (bookmark >>> 32));
+        result = (prime * result) + bookmarks.hashCode();
         result = (prime * result) + (int) (duration ^ (duration >>> 32));
         result = (prime * result) + (erroneous ? 1231 : 1237);
         result = (prime * result) + (locked ? 1231 : 1237);
@@ -340,7 +381,7 @@ public final class TrackModel {
 
         TrackModel other = (TrackModel) obj;
 
-        if (bookmark != other.bookmark) {
+        if (!bookmarks.equals(other.bookmarks)) {
             return false;
         }
 
@@ -392,9 +433,14 @@ public final class TrackModel {
 
     @Override public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("TrackModel [bookmark=");
-        builder.append(bookmark);
-        builder.append(", duration=");
+        builder.append("TrackModel [bookmark={");
+        for (Long bookmark : bookmarks) {
+        	builder.append(bookmark);
+        	if (bookmarks.size() > 1) {
+        		builder.append(", ");
+        	}
+        }
+        builder.append("}, duration=");
         builder.append(duration);
         builder.append(", erroneous=");
         builder.append(erroneous);

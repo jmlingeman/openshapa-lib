@@ -14,6 +14,11 @@ public interface Plugin {
     DataViewer getNewDataViewer(java.awt.Frame parent, boolean modal);
 
     /**
+     * @return The data viewer class.
+     */
+    Class<? extends DataViewer> getViewerClass();
+
+    /**
      * @return The icon for representing this plugin. This can return null if
      *         this plugin has no icon representing its type.
      */

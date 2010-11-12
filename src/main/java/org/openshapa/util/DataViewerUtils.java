@@ -15,13 +15,14 @@ import org.openshapa.plugins.DataViewer;
 public final class DataViewerUtils {
 
     /**
-     * Store the DataViewer's offset in the given OutputStream.
+     * Store the DataViewer's default settings that need to be serialized in the
+     * given OutputStream.
      *
      * @param dv
      * @param os
      * @throws IOException
      */
-    public static void storeOffset(final DataViewer dv, final OutputStream os)
+    public static void storeDefaults(final DataViewer dv, final OutputStream os)
         throws IOException {
 
         if ((dv == null) || (os == null)) {
@@ -34,16 +35,16 @@ public final class DataViewerUtils {
     }
 
     /**
-     * Load and restore the DataViewer's offset from the given InputStream.
-     * Assumes that the offset was stored using the
-     * {@link #storeOffset(DataViewer, OutputStream)} method. This method's
+     * Load and restore the DataViewer's default serialized settings from the
+     * given InputStream. Assumes that the offset was stored using the
+     * {@link #storeDefaults(DataViewer, OutputStream)} method. This method's
      * behaviour is undefined otherwise.
      *
      * @param dv
      * @param is
      * @throws IOException
      */
-    public static void loadOffset(final DataViewer dv, final InputStream is)
+    public static void loadDefaults(final DataViewer dv, final InputStream is)
         throws IOException {
 
         if ((dv == null) || (is == null)) {

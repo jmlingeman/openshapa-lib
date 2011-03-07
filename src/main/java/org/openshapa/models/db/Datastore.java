@@ -12,4 +12,9 @@ public interface Datastore {
      * @return A collection of SimpleVariables from this database.
      */
     List<Variable> getAllVariables();
+
+    /**
+     * @return The name of the datastore.
+     */
+    String getName();
 }

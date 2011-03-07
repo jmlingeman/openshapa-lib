@@ -16,7 +16,7 @@
 
   -->
 
-  <version>0.0.58</version>
+  <version>0.0.59</version>
   <name>openshapa-lib</name>
   <url>http://openshapa.org</url>
 
@@ -37,7 +37,7 @@
     <repository>
       <id>repo</id>
       <name>openshapa-lib</name>
-      <url>scp://openshapa.nicta.org.au/var/www/maven2</url>
+      <url>scp://openshapa.org/var/www/maven2</url>
     </repository>
   </distributionManagement>
 

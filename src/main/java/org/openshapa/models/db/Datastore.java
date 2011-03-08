@@ -14,6 +14,13 @@ public interface Datastore {
     List<Variable> getAllVariables();
 
     /**
+     * Adds a variable to the datastore.
+     *
+     * @param var The new variable to add to the datastore.
+     */
+    void addVariable(final Variable var);
+
+    /**
      * @return The name of the datastore.
      */
     String getName();

@@ -24,4 +24,11 @@ public interface Datastore {
      * @return The name of the datastore.
      */
     String getName();
+
+    /**
+     * Sets the name of the datastore.
+     *
+     * @param datastoreName The new name to use for the datastore.
+     */
+    void setName(final String datastoreName);
 }

@@ -20,6 +20,15 @@ public interface Variable {
     List<Cell> getCells();
 
     /**
+     * Gets the 'index' cell from the variable that has been sorted temporally.
+     *
+     * @param index The index (from first onset to last offset) of the cell.
+     *
+     * @return The cell.
+     */
+    Cell getCellTemporally(final int index);
+
+    /**
      * @return All the cells stored in the variable using a temporal order.
      */
     List<Cell> getCellsTemporally();

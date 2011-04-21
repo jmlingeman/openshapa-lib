@@ -34,6 +34,18 @@ public interface Variable {
     List<Cell> getCellsTemporally();
 
     /**
+     * Selects the variable in the datastore.
+     * 
+     * @param selected True if the variable is selected, false otherwise.
+     */
+    void setSelected(final boolean selected);
+
+    /**
+     * @return True if the variable is currently selected or not.
+     */
+    boolean isSelected();
+
+    /**
      * @return The name of the variable as a string.
      */
     String getName();

@@ -15,10 +15,18 @@
          * openshapa/Info.plist - so that the OSX build works correctly.
 
   -->
+  
+  <licenses>
+    <license>
+      <name>MIT</name>
+      <url>http://www.opensource.org/licenses/MIT</url>
+      <distribution>repo</distribution>    
+    </license>
+  </licenses>
 
   <version>0.0.60</version>
   <name>openshapa-lib</name>
-  <url>http://openshapa.org</url>
+  <url>http://openshapa.org</url>  
 
   <!-- Our organisation. -->
   <organization>

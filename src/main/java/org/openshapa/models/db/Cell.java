@@ -32,12 +32,26 @@ public interface Cell {
      * cannot be resolved.
      */
     long getOffset();
+    
+    /**
+     * Sets the offset for this cell.
+     *
+     * @param newOffset The new offset timestamp to use for this cell.
+     */
+    void setOffset(final long newOffset);
 
     /**
      * @return The onset timestamp in milliseconds. Returns -1 if the onset
      * cannot be resolved.
      */
     long getOnset();
+    
+    /**
+     * Sets the onset for this cell.
+     *
+     * @param newOnset The new onset timestamp to use for this cell.
+     */
+    void setOnset(final long newOnset);
 
     /**
      * @return The value stored in the cell as a string. Returns null if the

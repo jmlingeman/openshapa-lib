@@ -36,9 +36,19 @@ public interface Cell {
     /**
      * Sets the offset for this cell.
      *
-     * @param newOffset The new offset timestamp to use for this cell.
+     * @param newOffset The new offset timestamp in milliseconds to use for this
+     * cell.
      */
     void setOffset(final long newOffset);
+    
+    /**
+     * Sets the offset for this cell.
+     *
+     * @param newOffset The new onset timestamp for this cell in string in the
+     * format "HH:MM:SS:mmm" where HH = hours, MM = minutes, SS = seconds and
+     * mmm = milliseconds.
+     */
+    void setOffset(final String newOffset);
 
     /**
      * @return The onset timestamp in milliseconds. Returns -1 if the onset
@@ -49,7 +59,17 @@ public interface Cell {
     /**
      * Sets the onset for this cell.
      *
-     * @param newOnset The new onset timestamp to use for this cell.
+     * @param newOnset The new onset timestamp for this cell in string in the
+     * format "HH:MM:SS:mmm" where HH = hours, MM = minutes, SS = seconds and
+     * mmm = milliseconds.
+     */
+    void setOnset(final String newOnset);
+    
+    /**
+     * Sets the onset for this cell.
+     *
+     * @param newOnset The new onset timestamp in milliseconds to use for this
+     * cell.
      */
     void setOnset(final long newOnset);
 

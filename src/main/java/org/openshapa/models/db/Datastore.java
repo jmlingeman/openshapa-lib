@@ -41,6 +41,11 @@ public interface Datastore {
     List<Variable> getSelectedVariables();
 
     /**
+     * @return All the selected cells, across the entire datastore.
+     */
+    List<Cell> getSelectedCells();
+
+    /**
      * @param varName The name of the variable to fetch.
      *
      * @return The variable that matches varName, NULL if unable to find a

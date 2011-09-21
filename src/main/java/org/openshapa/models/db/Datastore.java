@@ -41,6 +41,14 @@ public interface Datastore {
     List<Variable> getSelectedVariables();
 
     /**
+     * @param varName The name of the variable to fetch.
+     *
+     * @return The variable that matches varName, NULL if unable to find a
+     * variable that matches varName.
+     */
+    Variable getVariable(String varName);
+
+    /**
      * Adds a variable to the datastore.
      *
      * @param var The new variable to add to the datastore.

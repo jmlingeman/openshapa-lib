@@ -31,9 +31,14 @@ import java.util.List;
 public interface Datastore {
 
     /**
-     * @return A collection of SimpleVariables from this database.
+     * @return All the variables held in the datastore.
      */
     List<Variable> getAllVariables();
+
+    /**
+     * @return The variables selected in the datastore.
+     */
+    List<Variable> getSelectedVariables();
 
     /**
      * Adds a variable to the datastore.

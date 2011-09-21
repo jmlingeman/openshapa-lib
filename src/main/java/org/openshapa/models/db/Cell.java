@@ -78,4 +78,16 @@ public interface Cell {
      * string value cannot be resolved.
      */
     String getValue();
+
+    /**
+     * @return True if the cell is selected, false otherwise.
+     */
+    boolean isSelected();
+
+    /**
+     * Selects this cell.
+     *
+     * @param True if this cell is selected, false if unselected.
+     */
+    void setSelected(final boolean selected);
 }

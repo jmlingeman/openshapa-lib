@@ -68,6 +68,18 @@ public interface Variable {
     boolean isSelected();
 
     /**
+     * Hides the variable in the datastore.
+     *
+     * @param hidden True if the variable is hidden, false otherwise.
+     */
+    void setHidden(final boolean hidden);
+
+    /**
+     * @return True if the variable is currently hidden or not.
+     */
+    boolean isHidden();
+
+    /**
      * @return The name of the variable as a string.
      */
     String getName();

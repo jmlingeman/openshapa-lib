@@ -71,4 +71,10 @@ public interface Datastore {
      * @param datastoreName The new name to use for the datastore.
      */
     void setName(final String datastoreName);
+
+    /**
+     * Sets the title notifier that needs to be informed when the title of the
+     * application needs to be updated.
+     */
+    void setTitleNotifier(final TitleNotifier titleNotifier);
 }

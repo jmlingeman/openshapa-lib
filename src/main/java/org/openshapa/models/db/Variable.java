@@ -83,4 +83,11 @@ public interface Variable {
      * @return The name of the variable as a string.
      */
     String getName();
+
+    /**
+     * Sets the name of the variable.
+     *
+     * @param the new name to set with this database.
+     */
+    void setName(final String newName) throws UserWarningException;
 }

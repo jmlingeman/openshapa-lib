@@ -77,4 +77,15 @@ public interface Datastore {
      * application needs to be updated.
      */
     void setTitleNotifier(final TitleNotifier titleNotifier);
+
+    /**
+     * Adds a listener that needs to be notified when the datastore changes.
+     */
+    void addListener(final DatastoreListener listener);
+
+    /**
+     * Removes a listener from the list of things that need to be notified when
+     * the datastore changes.
+     */
+    void removeListener(final DatastoreListener listener);
 }

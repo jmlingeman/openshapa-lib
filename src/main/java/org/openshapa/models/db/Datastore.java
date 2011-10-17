@@ -23,6 +23,7 @@
 package org.openshapa.models.db;
 
 import java.util.List;
+import org.openshapa.models.db.VariableType.VariableType;
 
 /**
  * An interface which abstracts away from the specific underlying database,
@@ -52,6 +53,18 @@ public interface Datastore {
      * variable that matches varName.
      */
     Variable getVariable(String varName);
+
+    /**
+     * Creates and adds a variable to this datastore.
+     *
+     * @param name The name of the variable to add to the datastore.
+     * @param type The type of variable to add to the datastore.
+     *
+     * @return The new variable that was added to the datastore.
+     * @throws UserWarningException
+     */
+    Variable createVariable(final String name, final VariableType.type type)
+    throws UserWarningException;
 
     /**
      * Adds a variable to the datastore.

@@ -23,6 +23,7 @@
 package org.openshapa.models.db;
 
 import java.util.List;
+import org.openshapa.models.db.VariableType.VariableType;
 
 /**
  *  Just a collection of cells, relates to a DataColumn.
@@ -90,4 +91,9 @@ public interface Variable {
      * @param the new name to set with this database.
      */
     void setName(final String newName) throws UserWarningException;
+
+    /**
+     * @return The type of this variable.
+     */
+    VariableType.type getType();
 }

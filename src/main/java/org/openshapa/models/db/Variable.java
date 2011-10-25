@@ -23,6 +23,7 @@
 package org.openshapa.models.db;
 
 import java.util.List;
+import org.openshapa.models.db.VariableType.VariableType;
 
 /**
  *  Just a collection of cells, relates to a DataColumn.
@@ -49,6 +50,11 @@ public interface Variable {
      * @return The cell.
      */
     Cell getCellTemporally(final int index);
+    
+    /**
+     * @return The type of the variable.
+     */
+    VariableType.type getVariableType();
 
     /**
      * @return All the cells stored in the variable using a temporal order.

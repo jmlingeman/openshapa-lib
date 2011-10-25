@@ -74,6 +74,13 @@ public interface Datastore {
     void addVariable(final Variable var);
 
     /**
+     * Removes a variable from the datastore.
+     *
+     * @param var The variable to remove from the datastore.
+     */
+    void removeVariable(final Variable var);
+
+    /**
      * @return The name of the datastore.
      */
     String getName();

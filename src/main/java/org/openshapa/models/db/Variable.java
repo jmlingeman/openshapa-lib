@@ -96,4 +96,15 @@ public interface Variable {
      * @param the new name to set with this database.
      */
     void setName(final String newName) throws UserWarningException;
+
+    /**
+     * Adds a listener that needs to be notified when the variable changes.
+     */
+    void addListener(final VariableListener listener);
+
+    /**
+     * Removes a listener from the list of things that need to be notified when
+     * the variable changes.
+     */
+    void removeListener(final VariableListener listener);
 }

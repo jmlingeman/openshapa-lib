@@ -86,6 +86,12 @@ public interface Datastore {
     String getName();
 
     /**
+     * @return True if the datastore has changed since it was last saved, false
+     * otherwise.
+     */
+    boolean isChanged();
+
+    /**
      * Sets the name of the datastore.
      *
      * @param datastoreName The new name to use for the datastore.

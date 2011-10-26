@@ -31,11 +31,11 @@ import org.openshapa.models.db.VariableType.VariableType;
 public interface Variable {
 
     /**
-     * Adds a new cell to the variable.
+     * Creates and inserts a cell into this variable.
      *
-     * @param newCell
+     * @return The newly created variable.
      */
-    void addCell(final Cell newCell);
+    Cell createCell();
 
     /**
      * @return All the cells stored in the variable.

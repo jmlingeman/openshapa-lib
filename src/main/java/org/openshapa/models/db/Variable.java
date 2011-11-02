@@ -62,6 +62,13 @@ public interface Variable {
     List<Cell> getCellsTemporally();
 
     /**
+     * @param c The cell to check if it exists in this variable.
+     *
+     * @return True if this variable contains the supplied cell, false otherwise.
+     */
+    boolean contains(final Cell c);
+
+    /**
      * Selects the variable in the datastore.
      * 
      * @param selected True if the variable is selected, false otherwise.

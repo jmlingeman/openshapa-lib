@@ -90,4 +90,16 @@ public interface Cell {
      * @param True if this cell is selected, false if unselected.
      */
     void setSelected(final boolean selected);
+
+    /**
+     * @return True if the cell is highlighted, false otherwise.
+     */
+    boolean isHighlighted();
+
+    /**
+     * Highlights the cell.
+     *
+     * @param highlighted True if this cell is highlighted, false otherwise.
+     */
+    void setHighlighted(final boolean highlighted);
 }

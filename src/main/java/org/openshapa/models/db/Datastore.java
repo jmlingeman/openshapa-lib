@@ -55,6 +55,13 @@ public interface Datastore {
     Variable getVariable(String varName);
 
     /**
+     * @param The cell that we are looking for it's parent variable.
+     *
+     * @return The parent variable for the supplied cell.
+     */
+    Variable getVariable(Cell cell);
+
+    /**
      * Creates and adds a variable to this datastore.
      *
      * @param name The name of the variable to add to the datastore.

@@ -88,6 +88,13 @@ public interface Datastore {
     void removeVariable(final Variable var);
 
     /**
+     * Removes a variable from the datastore.
+     *
+     * @param cell The cell to remove from the datastore.
+     */
+    void removeCell(final Cell cell);
+
+    /**
      * @return The name of the datastore.
      */
     String getName();

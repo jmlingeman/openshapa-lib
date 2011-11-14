@@ -35,6 +35,14 @@ public interface VariableListener {
     void nameChanged(final String newName);
 
     /**
+     * Called when the visibility of a variable has changed.
+     *
+     * @param isHidden The visibility state of the variable, true if hidden,
+     * false otherwise.
+     */
+    void visibilityChanged(final boolean isHidden);
+
+    /**
      * A cell has been inserted into the variable.
      *
      * @param newCell The new cell that has been added to the variable.

@@ -28,6 +28,13 @@ package org.openshapa.models.db;
 public interface Cell {
 
     /**
+     * @return the offset timestamp in a HH:mm:ss:SSS format, where HH is 24 hour
+     * mm is minutes in an hour, ss is seconds in a minute and SSS is
+     * milliseconds in a second.
+     */
+    String getOffsetString();
+
+    /**
      * @return The offset timestamp in milliseconds. Returns -1 if the offset
      * cannot be resolved.
      */
@@ -56,6 +63,13 @@ public interface Cell {
      */
     long getOnset();
     
+    /**
+     * @return the onset timestamp in a HH:mm:ss:SSS format, where HH is 24 hour
+     * mm is minutes in an hour, ss is seconds in a minute and SSS is
+     * milliseconds in a second.
+     */
+    String getOnsetString();
+
     /**
      * Sets the onset for this cell.
      *

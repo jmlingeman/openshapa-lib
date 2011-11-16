@@ -102,4 +102,15 @@ public interface Cell {
      * @param highlighted True if this cell is highlighted, false otherwise.
      */
     void setHighlighted(final boolean highlighted);
+
+    /**
+     * Adds a listener that needs to be notified when the cell changes.
+     */
+    void addListener(final CellListener listener);
+
+    /**
+     * Removes a listener from the list of things that need to be notified when
+     * the cell changes.
+     */
+    void removeListener(final CellListener listener);
 }

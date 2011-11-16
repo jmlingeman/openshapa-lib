@@ -23,7 +23,6 @@
 package org.openshapa.models.db;
 
 import java.util.List;
-import org.openshapa.models.db.VariableType.VariableType;
 
 /**
  * An interface which abstracts away from the specific underlying database,
@@ -70,7 +69,7 @@ public interface Datastore {
      * @return The new variable that was added to the datastore.
      * @throws UserWarningException
      */
-    Variable createVariable(final String name, final VariableType.type type)
+    Variable createVariable(final String name, final Variable.type type)
     throws UserWarningException;
 
     /**
@@ -78,6 +77,7 @@ public interface Datastore {
      *
      * @param var The new variable to add to the datastore.
      */
+    @Deprecated
     void addVariable(final Variable var);
 
     /**

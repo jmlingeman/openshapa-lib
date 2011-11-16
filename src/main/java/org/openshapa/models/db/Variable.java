@@ -23,12 +23,20 @@
 package org.openshapa.models.db;
 
 import java.util.List;
-import org.openshapa.models.db.VariableType.VariableType;
 
 /**
  *  Just a collection of cells, relates to a DataColumn.
  */
 public interface Variable {
+
+    /**
+     * All the possible types for a variable.
+     */
+    public enum type {
+        MATRIX,
+        TEXT,
+        NOMINAL
+    };
 
     /**
      * Creates and inserts a cell into the variable.
@@ -61,7 +69,7 @@ public interface Variable {
     /**
      * @return The type of the variable.
      */
-    VariableType.type getVariableType();
+    Variable.type getVariableType();
 
     /**
      * @return All the cells stored in the variable using a temporal order.

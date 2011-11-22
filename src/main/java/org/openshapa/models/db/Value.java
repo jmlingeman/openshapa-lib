@@ -26,5 +26,29 @@ package org.openshapa.models.db;
  * The value held in a cell.
  */
 public interface Value {
-    
+
+    /**
+     * @param value The string to test if it is valid.
+     *
+     * @return True if the supplied value is a valid substitute 
+     */
+    boolean isValid(final String value); 
+
+    /**
+     * Clears the contents of the value and returns it to a 'null'/Empty state.
+     */
+    void clear();
+
+    /**
+     * @return True if the value is empty/'null' false otherwise.
+     */
+    boolean isEmpty();
+
+    /**
+     * Sets the value, this method leaves the value unchanged if the supplied
+     * input is invalid. Use isValid to test.
+     *
+     * @param value The new content to use for this value.
+     */
+    void set(final String value);
 }

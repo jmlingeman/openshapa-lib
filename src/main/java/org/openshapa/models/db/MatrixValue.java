@@ -22,9 +22,14 @@
  */
 package org.openshapa.models.db;
 
+import java.util.List;
+
 /**
  * The value held within a cell inside a matrix column.
  */
 public interface MatrixValue extends Value {
-    
+    /**
+     * @return All the argument values that make up this matrix.
+     */
+    List<Value> getArguments();
 }

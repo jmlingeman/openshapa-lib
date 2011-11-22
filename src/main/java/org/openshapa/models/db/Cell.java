@@ -91,7 +91,12 @@ public interface Cell {
      * @return The value stored in the cell as a string. Returns null if the
      * string value cannot be resolved.
      */
-    String getValue();
+    String getValueAsString();
+
+    /**
+     * @return The value of the cell.
+     */
+    Value getValue();
 
     /**
      * @return True if the cell is selected, false otherwise.

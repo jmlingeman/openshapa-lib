@@ -51,4 +51,7 @@ public interface Value {
      * @param value The new content to use for this value.
      */
     void set(final String value);
+    
+    // Must override toString in such a way that when isEmpty == true, toString
+    // returns a valid empty value i.e. "<argName>"
 }

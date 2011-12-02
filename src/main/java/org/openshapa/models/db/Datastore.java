@@ -98,6 +98,12 @@ public interface Datastore {
      * @return The name of the datastore.
      */
     String getName();
+    
+    /**
+     * Used to flag all changes in the datastore as committed. isChanged will
+     * return false after calling this method.
+     */
+    void markAsUnchanged();
 
     /**
      * @return True if the datastore has changed since it was last saved, false

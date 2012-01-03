@@ -30,15 +30,6 @@ import java.util.List;
 public interface Variable {
 
     /**
-     * All the possible types for a variable.
-     */
-    public enum type {
-        MATRIX,
-        TEXT,
-        NOMINAL
-    };
-
-    /**
      * Creates and inserts a cell into the variable.
      *
      * @return The newly created variable.
@@ -65,11 +56,18 @@ public interface Variable {
      * @return The cell.
      */
     Cell getCellTemporally(final int index);
-    
+
     /**
      * @return The type of the variable.
      */
-    Variable.type getVariableType();
+    Argument getVariableType();
+
+    /**
+     * Sets the variable type.
+     *
+     * @param newType The new argument to use with this variable.
+     */
+    void setVariableType(final Argument newType);
 
     /**
      * @return All the cells stored in the variable using a temporal order.

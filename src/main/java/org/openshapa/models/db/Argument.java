@@ -22,40 +22,51 @@
  */
 package org.openshapa.models.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * The value held in a cell.
+ * The arguments held within the matrix.
  */
-public interface Value {
+public final class Argument {
+    /**
+     * All the possible types for an argument/variable.
+     */
+    public enum Type {
+        MATRIX,
+        TEXT,
+        NOMINAL
+    };
+
+    // The name of argument.
+    public String name;
+
+    // Type type of argument.
+    public Type type;
+
+    // The child arguments - this is empty if no child arguments.
+    public List<Argument> childArguments;
 
     /**
-     * @param value The string to test if it is valid.
+     * Constructor.
      *
-     * @return True if the supplied value is a valid substitute 
+     * @param newName The new name to use for the argument.
+     * @param newType The new type to use for the argument.
+     * @param newValue The new value to use for the argument.
      */
-    boolean isValid(final String value); 
+    public Argument(final String newName,
+                    final Type newType) {
+        name = newName;
+        type = newType;
+        childArguments = new ArrayList<Argument>();
+        
+        if (type == Type.MATRIX) {
+            addChildArgument(Type.NOMINAL);
+        }
+    }
 
-    /**
-     * Clears the contents of the value and returns it to a 'null'/Empty state.
-     */
-    void clear();
-
-    /**
-     * @return True if the value is empty/'null' false otherwise.
-     */
-    boolean isEmpty();
-
-    /**
-     * Sets the value, this method leaves the value unchanged if the supplied
-     * input is invalid. Use isValid to test.
-     *
-     * @param value The new content to use for this value.
-     */
-    void set(final String value);
-
-    /**
-     * @return must override toString in such a way that when isEmpty == true,
-     * toString returns a valid empty value i.e. "<argName>"
-     */
-    @Override
-    String toString();
+    public void addChildArgument(final Type newType) {
+        Argument child = new Argument("arg" + childArguments.size() + 1, newType);
+        childArguments.add(child);
+    }
 }

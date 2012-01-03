@@ -28,8 +28,20 @@ import java.util.List;
  * The value held within a cell inside a matrix column.
  */
 public interface MatrixValue extends Value {
+
     /**
      * @return All the argument values that make up this matrix.
      */
     List<Value> getArguments();
+
+    /**
+     * Creates and adds a new argument to the matrix. The name of the new
+     * argument will be 'arg1' if this is the first argument added to the matrix
+     * 'arg2' if the second, and so on.
+     *
+     * @param argType The type of argument to add to the matrix.
+     *
+     * @return The newly created argument that was added to this matrix.
+     */
+    Value createArgument(Argument.Type argType);    
 }

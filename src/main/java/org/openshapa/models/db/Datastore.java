@@ -69,7 +69,7 @@ public interface Datastore {
      * @return The new variable that was added to the datastore.
      * @throws UserWarningException
      */
-    Variable createVariable(final String name, final Variable.type type)
+    Variable createVariable(final String name, final Argument.Type type)
     throws UserWarningException;
 
     /**

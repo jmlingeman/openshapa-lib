@@ -98,6 +98,14 @@ public interface Datastore {
      * @return The name of the datastore.
      */
     String getName();
+
+    /**
+     * Is the datastore permitted to mark a datastore as unsaved?
+     *
+     * @param canSet True if the datastore is premitted to mark a itself as
+     * unsaved, false otherwise.
+     */
+    void canSetUnsaved(final boolean canSet);
     
     /**
      * Used to flag all changes in the datastore as committed. isChanged will
